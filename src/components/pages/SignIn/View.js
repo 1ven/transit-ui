@@ -1,0 +1,1 @@
+export default () => "Sign in";
