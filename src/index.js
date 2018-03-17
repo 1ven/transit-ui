@@ -1,3 +1,3 @@
-import setup from "core/setup";
+import application from "./application";
 
-setup();
+application();
