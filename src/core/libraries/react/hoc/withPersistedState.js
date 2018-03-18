@@ -9,7 +9,7 @@ export default (stateKey, updaterKey, initial) => {
     return withState(stateKey, updaterKey, initial);
   }
 
-  const state = localStorage.getItem(stateKey) || initial;
+  const state = getStorageValue(stateKey) || initial;
 
   return Component =>
     class extends React.Component {
@@ -18,7 +18,7 @@ export default (stateKey, updaterKey, initial) => {
       };
 
       updateState(value) {
-        localStorage.setItem(stateKey, value);
+        setStorageValue(stateKey, value);
 
         this.setState({
           value
@@ -37,4 +37,18 @@ export default (stateKey, updaterKey, initial) => {
         );
       }
     };
+};
+
+const getStorageValue = key => {
+  const value = localStorage.getItem(key);
+
+  if (typeof value === "undefined") {
+    return void 0;
+  }
+
+  return JSON.parse(value);
+};
+
+const setStorageValue = (key, value) => {
+  localStorage.setItem(key, JSON.stringify(value));
 };

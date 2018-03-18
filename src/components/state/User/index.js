@@ -3,7 +3,7 @@ import { createContext } from "react";
 import { compose, withProps } from "recompose";
 import { withPromise, withPersistedState } from "core/libraries/react/hoc";
 import paths from "core/application/paths";
-import { signIn } from "model/user/api";
+import { signIn, signOut } from "model/user/api";
 
 const Context = createContext();
 
@@ -15,10 +15,16 @@ export default compose(
       props.setAuthenticated(true);
     }
   })),
+  withPromise(signOut, "signOut", props => ({
+    onSuccess: () => {
+      props.setAuthenticated(false);
+    }
+  })),
   withProps(p => ({
     value: {
       isAuthenticated: p.isAuthenticated,
-      signIn: p.signIn
+      signIn: p.signIn,
+      signOut: p.signOut
     }
   }))
 )(Context.Provider);
