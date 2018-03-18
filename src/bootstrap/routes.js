@@ -1,15 +1,12 @@
 import { renderRoutes } from "react-router-config";
 import createBrowserHistory from "history/createBrowserHistory";
-import * as pages from "components/pages";
+import paths from "core/application/paths";
+import * as product from "components/pages/product";
+import * as user from "components/pages/user";
 
 const Root = ({ route }) => renderRoutes(route.routes);
 
 export const history = createBrowserHistory();
-
-export const paths = {
-  main: "/",
-  signIn: "/auth/sign-in"
-};
 
 export const routes = renderRoutes([
   {
@@ -18,12 +15,12 @@ export const routes = renderRoutes([
       {
         path: paths.main,
         exact: true,
-        component: pages.Main
+        component: product.List
       },
       {
         path: paths.signIn,
         exact: true,
-        component: pages.SignIn
+        component: user.SignIn
       }
     ]
   }

@@ -4,11 +4,11 @@ import { Label } from "components/common/form/service";
 import { Input } from "components/common/form/formik";
 import { Button } from "components/common/kit";
 
-export default ({ initialValues, onSubmit }) => (
-  <div className="flex items-center justify-center min-vh-100 pv3">
+export default ({ initialValues, signIn }) => (
+  <div className="flex items-center justify-center min-vh-100 pa3">
     <Formik
       initialValues={initialValues}
-      onSubmit={onSubmit}
+      onSubmit={signIn.fetch}
       render={() => (
         <Form className="mw6 w-100">
           <div className="mb3 f3">Sign in to the application</div>
@@ -30,7 +30,12 @@ export default ({ initialValues, onSubmit }) => (
               />
             </Label>
           </div>
-          <Button>Sign in</Button>
+          <div className="flex">
+            <Button>{signIn.isFetching ? "Please, wait..." : "Sign in"}</Button>
+            <a className="ml-auto f6 blue" href="#">
+              Forgot password
+            </a>
+          </div>
         </Form>
       )}
     />

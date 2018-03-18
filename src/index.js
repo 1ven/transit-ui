@@ -1,3 +1,3 @@
-import application from "./application";
+import bootstrap from "./bootstrap";
 
-application();
+bootstrap();

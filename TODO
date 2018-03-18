@@ -1,0 +1,3 @@
+- Implement notifications using new context api
+- Implement withPromise hoc to store promise state in a local state
+- Integrate redux for storing global state / keep it in one component and use new context api
