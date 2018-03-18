@@ -13,7 +13,6 @@ export default compose(
   withPromise(signIn, "signIn", props => ({
     onSuccess: () => {
       props.setAuthenticated(true);
-      props.history.replace(paths.main);
     }
   })),
   withProps(p => ({
