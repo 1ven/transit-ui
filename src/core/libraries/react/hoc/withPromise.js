@@ -36,7 +36,7 @@ export default (fn, key, propsToConfig) =>
               updateState(state => ({
                 ...state,
                 isFetching: false,
-                error: err.data || err.message
+                error: err
               }));
               config.onFailure(err);
             }

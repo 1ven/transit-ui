@@ -40,7 +40,7 @@ export default () => (
                 <Button>
                   {signIn.isFetching ? "Please, wait..." : "Sign in"}
                 </Button>
-                <a className="ml-auto f6 blue" href="#">
+                <a className="ml-auto f6 green" href="#">
                   Forgot password
                 </a>
               </div>
