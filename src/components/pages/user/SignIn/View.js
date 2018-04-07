@@ -1,5 +1,7 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { Form, Field } from "react-final-form";
+import paths from "core/application/paths";
 import { Label } from "components/generic/form/service";
 import { Input, Checkbox } from "components/generic/form/elements";
 import { Button } from "components/generic/kit";
@@ -55,8 +57,15 @@ export default () => (
               </div>
               <div className="f6">
                 Don't have an account? Sign up as a
-                <span className="fw6 underline"> customer</span> or
-                <span className="fw6 underline"> driver</span>.
+                <Link to={paths.customer.signUp} className="black fw6">
+                  {" "}
+                  customer
+                </Link>{" "}
+                or
+                <Link to="" className="black fw6">
+                  {" "}
+                  driver
+                </Link>.
               </div>
             </form>
           )}

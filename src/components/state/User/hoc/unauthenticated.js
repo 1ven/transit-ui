@@ -10,7 +10,7 @@ export default compose(
   consumerToHoc(Consumer, "user"),
   listenPropUpdate(path(["user", "isAuthenticated"]), ({ user, history }) => {
     if (user.isAuthenticated) {
-      history.replace(paths.main);
+      history.replace(paths.user.main);
     }
   }),
   /**
