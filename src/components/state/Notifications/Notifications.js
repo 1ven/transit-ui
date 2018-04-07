@@ -1,16 +1,38 @@
 import React from "react";
 import styled from "styled-components";
+import { spring, TransitionMotion } from "react-motion";
 
-export default ({ items, onItemClick }) =>
-  !!items.length && (
-    <div className="mt3 fixed top-0 left-0 flex flex-column items-center w-100">
-      {items.map(n => (
-        <Item onClick={() => onItemClick(n.id)} key={n.id}>
-          {n.message}
-        </Item>
-      ))}
-    </div>
-  );
+export default ({ items, onItemClick }) => (
+  <TransitionMotion
+    willEnter={() => ({
+      opacity: 0
+    })}
+    willLeave={() => ({ opacity: spring(0) })}
+    styles={items.map(item => ({
+      key: item.id.toString(),
+      data: item,
+      style: {
+        opacity: spring(1)
+      }
+    }))}
+  >
+    {interpolatedStyles =>
+      !!interpolatedStyles.length && (
+        <div className="mt3 fixed top-0 left-0 flex flex-column items-center w-100">
+          {interpolatedStyles.map(item => (
+            <Item
+              onClick={() => onItemClick(item.data.id)}
+              key={item.key}
+              style={{ ...item.style }}
+            >
+              {item.data.message}
+            </Item>
+          ))}
+        </div>
+      )
+    }
+  </TransitionMotion>
+);
 
 const Item = styled.div.attrs({
   className: "flex f6 pv2 ph3 br2 bg-red white mw6 w-100 mb3 pointer"
