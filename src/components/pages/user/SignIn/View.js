@@ -1,8 +1,8 @@
 import React from "react";
 import { Formik, Form } from "formik";
-import { Label } from "components/common/form/service";
-import { Input } from "components/common/form/formik";
-import { Button } from "components/common/kit";
+import { Label } from "components/generic/form/service";
+import { Input } from "components/generic/form/formik";
+import { Button } from "components/generic/kit";
 import * as userState from "components/state/User";
 
 export default () => (

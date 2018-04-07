@@ -25,7 +25,7 @@ export default compose(
 )(({ notifications, add, close, children }) => (
   <Context.Provider
     value={{
-      notifications,
+      // notifications,
       add,
       close
     }}
