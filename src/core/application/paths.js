@@ -1,4 +1,4 @@
 export default {
   main: "/",
-  signIn: "/auth/sign-in"
+  signIn: "/sign-in"
 };
