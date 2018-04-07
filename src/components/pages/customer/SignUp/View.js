@@ -11,7 +11,7 @@ export default ({ validate, signUp = {} }) => (
     <Form
       onSubmit={console.log}
       validate={validate}
-      render={({ handleSubmit, invalid, submitFailed }) => (
+      render={({ handleSubmit, invalid, submitFailed, pristine }) => (
         <form onSubmit={handleSubmit} className="mw6 w-100">
           <div className="flex mb4">
             <Steps length={2} active={0} />
@@ -49,7 +49,11 @@ export default ({ validate, signUp = {} }) => (
             </Label>
           </div>
           <div className="flex items-center">
-            <Button color={submitFailed && invalid ? "red" : "green"}>
+            <Button
+              color={
+                pristine ? "gray" : submitFailed && invalid ? "red" : "green"
+              }
+            >
               {signUp.isFetching ? "Please, wait..." : "Create account"}
             </Button>
             <i

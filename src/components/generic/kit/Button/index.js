@@ -4,7 +4,8 @@ import cx from "classnames";
 
 const colors = {
   red: "bg-red",
-  green: "bg-green"
+  green: "bg-green",
+  gray: "bg-moon-gray"
 };
 
 export default ({ children, color = "green" }) => (
