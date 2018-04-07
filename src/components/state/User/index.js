@@ -4,12 +4,15 @@ import { compose, withProps } from "recompose";
 import { withPromise, withPersistedState } from "core/libraries/react/hoc";
 import * as request from "core/packages/request";
 import paths from "core/application/paths";
+import { consumerToHoc } from "core/libraries/react/hoc";
 import { signIn, signOut } from "model/user/api";
+import * as notificationsState from "../Notifications";
 
 const Context = createContext();
 
 export default compose(
   withRouter,
+  consumerToHoc(notificationsState.Consumer, "notifications"),
   withPersistedState("isAuthenticated", "setAuthenticated", false),
   withPromise(signIn, "signIn", props => ({
     onSuccess: () => {
@@ -24,7 +27,7 @@ export default compose(
         return alert("Timeout error");
       }
       if (err instanceof request.HttpError && err.data.message) {
-        return alert(err.data.message);
+        return props.notifications.add(err.data.message);
       }
       throw err;
     }

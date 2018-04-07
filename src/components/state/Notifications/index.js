@@ -1,41 +1,38 @@
-import { createContext } from "react";
-import { compose, withReducer, withStateHandlers } from "recompose";
+import React, { createContext } from "react";
+import { compose, withReducer, withState, withHandlers } from "recompose";
+import Notifications from "./Notifications";
 
 const Context = createContext();
 
 export default compose(
-  withStateHandlers(
-    {
-      /**
-       * Incremental couter of notifications id's.
-       */
-      counter: 0,
-      notifications: []
-    },
-    {
-      add: state => message => ({
-        counter: state.counter + 1,
-        notifications: [...state.notifications, { id: state.counter, message }]
-      }),
-      remove: state => id => ({
-        notifications: state.notifications.filter(n => n.id !== id)
-      })
+  withState("counter", "setCounter", 0),
+  withState("notifications", "setNotifications", []),
+  withHandlers({
+    remove: props => id => {
+      props.setNotifications(props.notifications.filter(n => n.id !== id));
     }
-  )
-)(({ notifications, add, close, children }) => (
+  }),
+  withHandlers({
+    add: props => (message, timeout = 2000) => {
+      const id = props.counter;
+
+      setTimeout(() => {
+        props.remove(id);
+      }, timeout);
+
+      props.setCounter(id + 1);
+      props.setNotifications([...props.notifications, { id, message }]);
+    }
+  })
+)(({ notifications, add, remove, children }) => (
   <Context.Provider
     value={{
-      // notifications,
       add,
-      close
+      remove
     }}
   >
     {children}
-    {notifications.length && (
-      <div className="fixed t0 l0">
-        {notifications.map(n => <div key={n.id}>{n.message}</div>)}
-      </div>
-    )}
+    <Notifications items={notifications} onItemClick={remove} />
   </Context.Provider>
 ));
 
