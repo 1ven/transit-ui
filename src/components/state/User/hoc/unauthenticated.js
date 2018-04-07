@@ -14,7 +14,7 @@ export default compose(
     }
   }),
   /**
-   * Don't rendering anything if user is not authenticated.
+   * Don't rendering anything if user is authenticated.
    */
   branch(path(["user", "isAuthenticated"]), renderNothing)
 );

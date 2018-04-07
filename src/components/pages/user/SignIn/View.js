@@ -1,7 +1,7 @@
 import React from "react";
 import { Formik, Form } from "formik";
 import { Label } from "components/generic/form/service";
-import { Input } from "components/generic/form/formik";
+import { Input, Checkbox } from "components/generic/form/formik";
 import { Button } from "components/generic/kit";
 import * as userState from "components/state/User";
 
@@ -12,12 +12,14 @@ export default () => (
         <Formik
           initialValues={{
             email: "",
-            password: ""
+            password: "",
+            remember: true
           }}
           onSubmit={signIn.fetch}
           render={() => (
             <Form className="mw6 w-100">
-              <div className="mb3 f3">Sign in to the application</div>
+              <div className="mb2 f3">Sign in to the application</div>
+              <div className="mb4 f6">Enter your credentials</div>
               <div className="mb2">
                 <Label title="Email address">
                   <Input
@@ -27,7 +29,7 @@ export default () => (
                   />
                 </Label>
               </div>
-              <div className="mb3">
+              <div className="mb4">
                 <Label title="Password">
                   <Input
                     type="password"
@@ -36,13 +38,21 @@ export default () => (
                   />
                 </Label>
               </div>
-              <div className="flex">
-                <Button>
-                  {signIn.isFetching ? "Please, wait..." : "Sign in"}
-                </Button>
+              <div className="flex items-center mb3">
+                <Checkbox name="remember" title="Remember password" />
                 <a className="ml-auto f6 green" href="#">
                   Forgot password
                 </a>
+              </div>
+              <div className="flex mb2">
+                <Button>
+                  {signIn.isFetching ? "Please, wait..." : "Sign in"}
+                </Button>
+              </div>
+              <div className="f6">
+                Don't have an account? Sign up as a
+                <span className="fw6 underline"> customer</span> or
+                <span className="fw6 underline"> driver</span>.
               </div>
             </Form>
           )}

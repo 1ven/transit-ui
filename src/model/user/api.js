@@ -2,7 +2,7 @@ import { requestJson, requestGeneric } from "core/application/utils";
 
 export const signIn = ({ email, password }) =>
   requestJson({
-    path: "/auth/sign-in/local",
+    path: "/auth/local/sign-in",
     method: "POST",
     body: {
       email,
