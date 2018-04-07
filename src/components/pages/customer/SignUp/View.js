@@ -6,11 +6,12 @@ import { Input } from "components/generic/form/elements";
 import { Button } from "components/generic/kit";
 import { Steps } from "components/common/sign-up";
 
-export default ({ signUp = {} }) => (
+export default ({ validate, signUp = {} }) => (
   <Wrap className="pa3 flex flex-column items-center">
     <Form
       onSubmit={console.log}
-      render={({ handleSubmit }) => (
+      validate={validate}
+      render={({ handleSubmit, invalid, submitFailed }) => (
         <form onSubmit={handleSubmit} className="mw6 w-100">
           <div className="flex mb4">
             <Steps length={2} active={0} />
@@ -47,10 +48,18 @@ export default ({ signUp = {} }) => (
               />
             </Label>
           </div>
-          <div className="flex">
-            <Button>
+          <div className="flex items-center">
+            <Button color={submitFailed && invalid ? "red" : "green"}>
               {signUp.isFetching ? "Please, wait..." : "Create account"}
             </Button>
+            <i
+              style={{
+                visibility: submitFailed && invalid ? "visible" : "hidden"
+              }}
+              className="material-icons ml2 red"
+            >
+              error_outline
+            </i>
           </div>
         </form>
       )}

@@ -1,8 +1,19 @@
 import React from "react";
 import styled from "styled-components";
+import cx from "classnames";
 
-export default ({ children }) => (
-  <Button className="btn input-reset white dib b--none br2 lh-copy outline-0 ph5 pv2 f6 fw1 bg-green pointer">
+const colors = {
+  red: "bg-red",
+  green: "bg-green"
+};
+
+export default ({ children, color = "green" }) => (
+  <Button
+    className={cx(
+      "btn input-reset white dib b--none br2 lh-copy outline-0 ph5 pv2 f6 fw1 pointer",
+      colors[color]
+    )}
+  >
     {children}
   </Button>
 );
