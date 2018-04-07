@@ -31,25 +31,9 @@ const Input = styled.input.attrs({
   }
 `;
 
-export default ({
-  name,
-  checked,
-  value,
-  onChange,
-  onBlur,
-  title,
-  disabled
-}) => (
+export default ({ title, input }) => (
   <label className="flex f6 fw5 pointer">
-    <Input
-      name={name}
-      checked={checked}
-      value={value}
-      onChange={onChange}
-      onBlur={onBlur}
-      type="checkbox"
-      disabled={disabled}
-    />
+    <Input type="checkbox" {...input} checked={input.value} />
     <div className="ml1">{title}</div>
   </label>
 );
