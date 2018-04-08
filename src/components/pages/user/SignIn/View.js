@@ -5,7 +5,7 @@ import paths from "core/application/paths";
 import { Label } from "components/generic/form/service";
 import { Input, Checkbox } from "components/generic/form/elements";
 import { Button } from "components/generic/kit";
-import * as userState from "components/state/User";
+import * as userState from "components/state/User/context";
 
 export default () => (
   <userState.Consumer>

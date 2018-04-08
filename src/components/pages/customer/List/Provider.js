@@ -1,5 +1,5 @@
 import { compose } from "recompose";
-import { authenticated } from "components/state/User/hoc";
+import { authenticated } from "core/application/hoc";
 import View from "./View";
 
 export default compose(authenticated)(View);

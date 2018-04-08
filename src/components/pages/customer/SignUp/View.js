@@ -8,26 +8,10 @@ import { Input } from "components/generic/form/elements";
 import { Button } from "components/generic/kit";
 import { Steps } from "components/common/sign-up";
 
-const signUp = () =>
-  Promise.reject({
-    fields: {
-      email: "User already exists"
-    }
-  });
-
-const withAsyncValidation = fn => async (...args) => {
-  try {
-    return await fn(...args);
-  } catch (err) {
-    // TODO: check if it's client/http error
-    return err.fields;
-  }
-};
-
-export default ({ validate }) => (
+export default ({ validate, signUp }) => (
   <Wrap className="pa3 flex flex-column items-center">
     <Form
-      onSubmit={withAsyncValidation(signUp)}
+      onSubmit={signUp.fetch}
       validate={validate}
       render={({ handleSubmit, invalid, submitFailed, pristine }) => (
         <form onSubmit={handleSubmit} className="mw6 w-100">

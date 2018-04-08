@@ -26,3 +26,4 @@
         }
       })
     ```
+  - have conception of middleware in `withPromise`

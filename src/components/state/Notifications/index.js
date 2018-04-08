@@ -1,8 +1,7 @@
-import React, { createContext } from "react";
-import { compose, withReducer, withState, withHandlers } from "recompose";
-import Notifications from "./Notifications";
-
-const Context = createContext();
+import React from "react";
+import { compose, withState, withHandlers } from "recompose";
+import Notifications from "./components/Notifications";
+import { Provider } from "./context";
 
 export default compose(
   withState("counter", "setCounter", 0),
@@ -25,7 +24,7 @@ export default compose(
     }
   })
 )(({ notifications, add, remove, children }) => (
-  <Context.Provider
+  <Provider
     value={{
       add,
       remove
@@ -33,7 +32,5 @@ export default compose(
   >
     {children}
     <Notifications items={notifications} onItemClick={remove} />
-  </Context.Provider>
+  </Provider>
 ));
-
-export const Consumer = Context.Consumer;

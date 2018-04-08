@@ -1,23 +1,15 @@
-import { merge, identity } from "ramda";
 import { withState, compose, mapProps } from "recompose";
+import { identity } from "ramda";
 
-export default (fn, key, propsToConfig) =>
+export default (fn, key, propsToMiddleware = () => identity) =>
   compose(
     withState(key, "updateState", {}),
     mapProps(({ updateState, ...props }) => {
-      const config = merge(
-        {
-          onSuccess: identity,
-          onFailure: identity
-        },
-        propsToConfig(props)
-      );
-
       return {
         ...props,
         [key]: {
           ...props[key],
-          fetch: async (...args) => {
+          fetch: propsToMiddleware(props)(async (...args) => {
             updateState(state => ({
               ...state,
               isFetching: true
@@ -31,16 +23,15 @@ export default (fn, key, propsToConfig) =>
                 error: void 0,
                 data
               }));
-              config.onSuccess(data);
             } catch (err) {
               updateState(state => ({
                 ...state,
                 isFetching: false,
                 error: err
               }));
-              config.onFailure(err);
+              throw err;
             }
-          }
+          })
         }
       };
     })

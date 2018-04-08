@@ -1,5 +1,5 @@
 import React from "react";
-import * as userState from "components/state/User";
+import * as userState from "components/state/User/context";
 
 export default () => (
   <userState.Consumer>
