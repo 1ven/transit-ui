@@ -15,11 +15,13 @@ export default ({ url, method, body, headers: h }) => {
 
         const responseBody = xhr.responseText && JSON.parse(xhr.responseText);
 
-        // TODO: should distinguish between client and server errors?
+        // TODO: handle 1xx and 3xx status codes.
         if (xhr.status >= 200 && xhr.status < 300) {
           resolve(responseBody);
-        } else {
-          reject(new HttpError(responseBody));
+        } else if (xhr.status >= 400 && xhr.status < 500) {
+          reject(new ClientError(responseBody));
+        } else if (xhr.status >= 500) {
+          reject(new ServerError(responseBody));
         }
       }
     };
@@ -46,8 +48,10 @@ export class ConnectionError {}
 
 export class TimeoutError {}
 
-export class HttpError {
+export class ClientError {
   constructor(data) {
     this.data = data;
   }
 }
+
+export class ServerError {}

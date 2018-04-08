@@ -26,7 +26,10 @@ export default compose(
       if (err instanceof request.TimeoutError) {
         return alert("Timeout error");
       }
-      if (err instanceof request.HttpError && err.data.message) {
+      if (err instanceof request.ServerError) {
+        return alert("Server error");
+      }
+      if (err instanceof request.ClientError && err.data.message) {
         return props.notifications.add(err.data.message);
       }
       throw err;
