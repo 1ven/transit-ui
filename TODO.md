@@ -9,3 +9,20 @@
 
 - Keep hocs in modules?
 - Or for example keep "should authenticated" logic in modules, and use generic hocs for authentication, authorization, which will take that logic.
+
+- Possible remove handlers callbacks from `withPromise` in favor of
+  - handling them directly at the time of calling, like we're doing with form validations
+  - handling them in providers by mapping promise request function and handling it there
+    ```javascript
+      withPromise(fetch, 'posts'),
+      withHandlers({
+        fetchPosts: ({ posts }) => async () => {
+          try {
+            await posts.fetch()
+            console.log('success')
+          } catch (err) {
+            console.log('error')
+          }
+        }
+      })
+    ```

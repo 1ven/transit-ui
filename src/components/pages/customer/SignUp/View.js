@@ -1,15 +1,33 @@
 import React from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 import { Form, Field } from "react-final-form";
+import paths from "core/application/paths";
 import { Label } from "components/generic/form/service";
 import { Input } from "components/generic/form/elements";
 import { Button } from "components/generic/kit";
 import { Steps } from "components/common/sign-up";
 
-export default ({ validate, signUp = {} }) => (
+const signUp = () =>
+  Promise.reject({
+    fields: {
+      email: "User already exists"
+    }
+  });
+
+const withAsyncValidation = fn => async (...args) => {
+  try {
+    return await fn(...args);
+  } catch (err) {
+    // TODO: check if it's client/http error
+    return err.fields;
+  }
+};
+
+export default ({ validate }) => (
   <Wrap className="pa3 flex flex-column items-center">
     <Form
-      onSubmit={console.log}
+      onSubmit={withAsyncValidation(signUp)}
       validate={validate}
       render={({ handleSubmit, invalid, submitFailed, pristine }) => (
         <form onSubmit={handleSubmit} className="mw6 w-100">
@@ -64,6 +82,9 @@ export default ({ validate, signUp = {} }) => (
             >
               error_outline
             </i>
+            <Link to={paths.user.signIn} className="ml-auto black f6">
+              Back to login
+            </Link>
           </div>
         </form>
       )}

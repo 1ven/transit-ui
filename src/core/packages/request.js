@@ -15,6 +15,7 @@ export default ({ url, method, body, headers: h }) => {
 
         const responseBody = xhr.responseText && JSON.parse(xhr.responseText);
 
+        // TODO: should distinguish between client and server errors?
         if (xhr.status >= 200 && xhr.status < 300) {
           resolve(responseBody);
         } else {
