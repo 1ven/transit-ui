@@ -1,13 +1,11 @@
 import yup from "yup";
 import { compose, withProps } from "recompose";
-import { yupValidate, withAsyncValidation } from "core/libraries/final-form";
-import { withPromise, unauthenticated } from "core/application/hoc";
-import { signUp } from "model/customer/api";
+import { yupValidate } from "core/libraries/final-form";
+import { unauthenticated } from "core/application/hoc";
 import View from "./View";
 
 export default compose(
   unauthenticated,
-  withPromise(signUp, "signUp", () => withAsyncValidation),
   withProps({
     validate: yupValidate(
       yup.object().shape({

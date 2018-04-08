@@ -20,11 +20,12 @@ export const yupValidate = schema => values => {
   }
 };
 
+// TODO: move to /libraries/final-form/middlewares?
 export const withAsyncValidation = next => async (...args) => {
   try {
     return await next(...args);
   } catch (err) {
-    if (err instanceof ClientError) {
+    if (err instanceof ClientError && err.data.fields) {
       return err.data.fields;
     }
     throw err;

@@ -9,6 +9,7 @@ export default (fn, key, propsToMiddleware = () => identity) =>
         ...props,
         [key]: {
           ...props[key],
+          // Use curryN, relying on `fn.length`?
           fetch: propsToMiddleware(props)(async (...args) => {
             updateState(state => ({
               ...state,

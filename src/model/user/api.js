@@ -1,5 +1,11 @@
 import { requestJson, requestGeneric } from "core/application/utils";
 
+export const fetchUser = () =>
+  requestJson({
+    path: "/self",
+    method: "GET"
+  });
+
 export const signIn = ({ email, password }) =>
   requestJson({
     path: "/auth/local/sign-in",
@@ -10,7 +16,7 @@ export const signIn = ({ email, password }) =>
     }
   });
 
-export const signUp = ({ email, password, confirmation, role }) =>
+export const signUp = (role, { email, password, confirmation }) =>
   requestJson({
     path: "/users",
     method: "POST",

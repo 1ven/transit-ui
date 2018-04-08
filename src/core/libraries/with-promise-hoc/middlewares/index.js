@@ -1,7 +1,7 @@
 export const withSuccess = cb => next => async (...args) => {
   try {
     const result = await next(...args);
-    cb();
+    cb(result);
     return result;
   } catch (err) {
     throw err;
