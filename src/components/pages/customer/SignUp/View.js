@@ -14,7 +14,6 @@ export default ({ validate }) => (
     {({ signUp }) => (
       <div className="pa3 flex items-center justify-center min-vh-100">
         <Form
-          // `withAsyncValidation` should be applied before handling server response errors.
           onSubmit={data => withAsyncValidation(signUp.fetch)("customer", data)}
           validate={validate}
           render={({ handleSubmit, invalid, submitFailed, pristine }) => (

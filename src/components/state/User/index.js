@@ -1,17 +1,25 @@
 import { compose, withProps, withState } from "recompose";
-import { withPersistedState } from "core/libraries/react/hoc";
-import { withSuccess } from "core/libraries/with-promise-hoc/middlewares";
+import { withPersistedState, consumerToHoc } from "core/libraries/react/hoc";
+import {
+  withSuccess,
+  withClientErrorMessage
+} from "core/libraries/with-promise-hoc/middlewares";
 import { withPromise } from "core/application/hoc";
 import { signIn, signOut, signUp, fetchUser } from "model/user/api";
+import * as notificationsState from "components/state/Notifications/context";
 import { Provider } from "./context";
 
 export default compose(
+  consumerToHoc(notificationsState.Consumer, "notifications"),
   withPersistedState("isAuthenticated", "setAuthenticated", false),
   withState("profile", "setProfile", null),
   withPromise(signIn, "signIn", props =>
-    withSuccess(() => {
-      props.setAuthenticated(true);
-    })
+    compose(
+      withClientErrorMessage(props.notifications.add),
+      withSuccess(() => {
+        props.setAuthenticated(true);
+      })
+    )
   ),
   withPromise(signOut, "signOut", props =>
     withSuccess(() => {
