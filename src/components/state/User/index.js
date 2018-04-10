@@ -1,11 +1,5 @@
-import { compose, withProps, withState } from "recompose";
+import { compose, withProps, withState, withHandlers } from "recompose";
 import { withPersistedState, consumerToHoc } from "core/libraries/react/hoc";
-import {
-  withSuccess,
-  withClientErrorMessage
-} from "core/libraries/with-promise-hoc/middlewares";
-import { withPromise } from "core/application/hoc";
-import { signIn, signOut, signUp, fetchUser } from "model/user/api";
 import * as notificationsState from "components/state/Notifications/context";
 import { Provider } from "./context";
 
@@ -13,37 +7,30 @@ export default compose(
   consumerToHoc(notificationsState.Consumer, "notifications"),
   withPersistedState("isAuthenticated", "setAuthenticated", false),
   withState("profile", "setProfile", null),
-  withPromise(signIn, "signIn", props =>
-    compose(
-      withClientErrorMessage(props.notifications.add),
-      withSuccess(() => {
-        props.setAuthenticated(true);
-      })
-    )
-  ),
-  withPromise(signOut, "signOut", props =>
-    withSuccess(() => {
+  withHandlers(props => ({
+    successSignIn: () => () => {
+      props.setAuthenticated(true);
+    },
+    successSignOut: () => () => {
       props.setAuthenticated(false);
-    })
-  ),
-  withPromise(signUp, "signUp", props =>
-    withSuccess(profile => {
+    },
+    successSignUp: () => profile => {
       props.setProfile(profile);
       props.setAuthenticated(true);
-    })
-  ),
-  withPromise(fetchUser, "fetchUser", props =>
-    withSuccess(profile => {
+    },
+    successUserFetch: () => profile => {
       props.setProfile(profile);
-    })
-  ),
+    }
+  })),
+  // TODO: implement context HOC, to eliminate repeating yourself
   withProps(p => ({
     value: {
       isAuthenticated: p.isAuthenticated,
-      signIn: p.signIn,
-      signOut: p.signOut,
-      signUp: p.signUp,
-      fetchUser: p.fetchUser // call that in guards, like authenticated etc
+      profile: p.profile,
+      successSignIn: p.successSignIn,
+      successSignOut: p.successSignOut,
+      successSignUp: p.successSignUp,
+      successUserFetch: p.successUserFetch
     }
   }))
 )(Provider);
