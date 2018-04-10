@@ -3,7 +3,7 @@ import {
   withSuccess,
   withClientErrorMessage
 } from "core/libraries/with-promise-hoc/middlewares";
-import { consumerToHoc } from "core/libraries/react/hoc";
+import { withConsumer } from "core/libraries/react/hoc";
 import { withPromise, unauthenticated } from "core/application/hoc";
 import { signIn } from "model/user/api";
 import * as userState from "components/state/User/context";
@@ -12,8 +12,8 @@ import View from "./View";
 
 export default compose(
   unauthenticated,
-  consumerToHoc(userState.Consumer, "user"),
-  consumerToHoc(notificationsState.Consumer, "notifications"),
+  withConsumer(userState.Consumer, "user"),
+  withConsumer(notificationsState.Consumer, "notifications"),
   withPromise(signIn, "signIn", props =>
     compose(
       withClientErrorMessage(props.notifications.add),

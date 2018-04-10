@@ -1,5 +1,4 @@
 - curryN
-- move client error message notifications logging out of generic middleware
 
   - `unauthenticated` should refer to the next state path, like [role].main
   - `authenticated` and `authorized` should refer to the previous state path, like `main` should refer to the `profile setup 2nd step` and pages with `authenticated` should refer to the `sign in` page

@@ -1,10 +1,10 @@
 import { compose, withProps, withState, withHandlers } from "recompose";
-import { withPersistedState, consumerToHoc } from "core/libraries/react/hoc";
+import { withPersistedState, withConsumer } from "core/libraries/react/hoc";
 import * as notificationsState from "components/state/Notifications/context";
 import { Provider } from "./context";
 
 export default compose(
-  consumerToHoc(notificationsState.Consumer, "notifications"),
+  withConsumer(notificationsState.Consumer, "notifications"),
   withPersistedState("isAuthenticated", "setAuthenticated", false),
   withState("profile", "setProfile", null),
   withHandlers(props => ({
