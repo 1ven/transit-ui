@@ -4,6 +4,7 @@ export default {
   },
   customer: {
     main: "/",
-    signUp: "/sign-up/customer"
+    signUp: "/sign-up/customer/credentials",
+    onboarding: "/sign-up/customer/onboarding"
   }
 };

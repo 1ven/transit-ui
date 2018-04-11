@@ -18,7 +18,7 @@ export default compose(
       props.setProfile(profile);
       props.setAuthenticated(true);
     },
-    successUserFetch: () => profile => {
+    successProfileFetch: () => profile => {
       props.setProfile(profile);
     }
   })),
@@ -30,7 +30,7 @@ export default compose(
       successSignIn: p.successSignIn,
       successSignOut: p.successSignOut,
       successSignUp: p.successSignUp,
-      successUserFetch: p.successUserFetch
+      successProfileFetch: p.successProfileFetch
     }
   }))
 )(Provider);

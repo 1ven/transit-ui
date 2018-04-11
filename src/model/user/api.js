@@ -1,6 +1,6 @@
 import { requestJson, requestGeneric } from "core/application/utils";
 
-export const fetchUser = () =>
+export const fetchProfile = () =>
   requestJson({
     path: "/self",
     method: "GET"
