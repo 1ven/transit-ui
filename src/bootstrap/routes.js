@@ -26,6 +26,11 @@ export const routes = renderRoutes([
         path: paths.customer.signUp,
         exact: true,
         component: customer.SignUp
+      },
+      {
+        path: paths.customer.onboarding,
+        exact: true,
+        component: customer.Onboarding
       }
     ]
   }

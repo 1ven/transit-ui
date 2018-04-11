@@ -20,6 +20,9 @@ export default compose(
     },
     successProfileFetch: () => profile => {
       props.setProfile(profile);
+    },
+    successOnboarding: () => roleEntry => {
+      props.setProfile(profile => ({ ...profile, role_entry: roleEntry }));
     }
   })),
   // TODO: implement context HOC, to eliminate repeating yourself
@@ -30,7 +33,8 @@ export default compose(
       successSignIn: p.successSignIn,
       successSignOut: p.successSignOut,
       successSignUp: p.successSignUp,
-      successProfileFetch: p.successProfileFetch
+      successProfileFetch: p.successProfileFetch,
+      successOnboarding: p.successOnboarding
     }
   }))
 )(Provider);
