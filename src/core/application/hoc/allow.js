@@ -8,9 +8,6 @@ import * as userState from "components/state/User/context";
 import { fetchProfile } from "model/user/api";
 import * as states from "model/user/utils/states";
 
-const profileLoaded = ({ user }) =>
-  !!user.profile.lastUpdated && !user.profile.error;
-
 export default cond =>
   compose(
     withConsumer(userState.Consumer, "user"),
@@ -19,8 +16,11 @@ export default cond =>
       redirect(paths.user.signIn)
     ),
     withConsumer(userState.Consumer, "user"),
-    withPromise("profileRequest", fetchProfile, props =>
-      withSuccess(props.user.successProfileFetch)
+    withPromise(
+      fetchProfile,
+      "profileRequest",
+      props => withSuccess(props.user.successProfileFetch)
+      // TODO: handle token expiring and wrong tokens
     ),
     lifecycle({
       componentDidMount() {
@@ -31,10 +31,11 @@ export default cond =>
       }
     }),
     branch(
-      profileLoaded,
+      ({ user }) => !!user.profile,
       branch(
-        ({ profile }) => !cond(profile),
-        redirect(({ profile }) => {
+        ({ user }) => !cond(user.profile),
+        redirect(({ user }) => {
+          const { profile } = user;
           // TODO: implement state machine?
           if (states.isSignedUpCustomer(profile)) {
             return paths.customer.onboarding;

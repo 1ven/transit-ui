@@ -11,6 +11,7 @@ export default (fn, key, propsToMiddleware = () => identity) =>
           ...props[key],
           // Use curryN, relying on `fn.length`?
           fetch: propsToMiddleware(props)(async (...args) => {
+            // TODO: move to a middleware and apply it by default
             updateState(state => ({
               ...state,
               isFetching: true
@@ -24,6 +25,7 @@ export default (fn, key, propsToMiddleware = () => identity) =>
                 error: void 0,
                 data
               }));
+              return data;
             } catch (err) {
               updateState(state => ({
                 ...state,
