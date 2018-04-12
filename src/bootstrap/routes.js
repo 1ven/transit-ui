@@ -1,44 +1,9 @@
-import { renderRoutes } from "react-router-config";
+import React from "react";
+import { values } from "ramda";
 import createBrowserHistory from "history/createBrowserHistory";
-import * as paths from "core/application/paths";
-import * as customer from "components/pages/customer";
-import * as driver from "components/pages/driver";
-import * as user from "components/pages/user";
+import * as pages from "components/pages";
 
-const Root = ({ route }) => renderRoutes(route.routes);
+const routes = values(pages).map(React.createElement);
 
 export const history = createBrowserHistory();
-
-export const routes = renderRoutes([
-  {
-    component: Root,
-    routes: [
-      {
-        path: paths.customer.main,
-        exact: true,
-        component: customer.List
-      },
-      {
-        path: paths.user.signIn,
-        exact: true,
-        component: user.SignIn
-      },
-      {
-        path: paths.customer.signUp,
-        exact: true,
-        component: customer.SignUp
-      },
-      {
-        path: paths.customer.onboarding,
-        exact: true,
-        component: customer.Onboarding
-      },
-
-      {
-        path: paths.driver.signUp,
-        exact: true,
-        component: driver.SignUp
-      }
-    ]
-  }
-]);
+export const Routes = () => routes;
