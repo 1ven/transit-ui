@@ -3,7 +3,7 @@ import { compose, branch, renderNothing, lifecycle } from "recompose";
 import { withPromise } from "core/application/hoc";
 import { withConsumer, redirect } from "core/libraries/react/hoc";
 import { withSuccess } from "core/libraries/with-promise-hoc/middlewares";
-import paths from "core/application/paths";
+import * as paths from "core/application/paths";
 import * as userState from "components/state/User/context";
 import { fetchProfile } from "model/user/api";
 import * as states from "model/user/utils/states";

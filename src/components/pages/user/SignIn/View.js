@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Form, Field } from "react-final-form";
-import paths from "core/application/paths";
+import * as paths from "core/application/paths";
 import { Label } from "components/generic/form/service";
 import { Input, Checkbox } from "components/generic/form/elements";
 import { Button } from "components/generic/kit";

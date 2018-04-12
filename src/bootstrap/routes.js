@@ -1,6 +1,6 @@
 import { renderRoutes } from "react-router-config";
 import createBrowserHistory from "history/createBrowserHistory";
-import paths from "core/application/paths";
+import * as paths from "core/application/paths";
 import * as customer from "components/pages/customer";
 import * as driver from "components/pages/driver";
 import * as user from "components/pages/user";

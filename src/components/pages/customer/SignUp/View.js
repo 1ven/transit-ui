@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Form, Field } from "react-final-form";
-import paths from "core/application/paths";
+import * as paths from "core/application/paths";
 import { Label, Row } from "components/generic/form/service";
 import { Input } from "components/generic/form/elements";
 import { Centered } from "components/generic/layout";
