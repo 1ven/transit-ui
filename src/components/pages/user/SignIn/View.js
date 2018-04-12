@@ -57,7 +57,7 @@ export default ({ signIn }) => (
               customer
             </Link>{" "}
             or
-            <Link to="" className="black fw6">
+            <Link to={paths.driver.signUp} className="black fw6">
               {" "}
               driver
             </Link>.

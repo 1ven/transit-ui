@@ -2,6 +2,7 @@ import { renderRoutes } from "react-router-config";
 import createBrowserHistory from "history/createBrowserHistory";
 import paths from "core/application/paths";
 import * as customer from "components/pages/customer";
+import * as driver from "components/pages/driver";
 import * as user from "components/pages/user";
 
 const Root = ({ route }) => renderRoutes(route.routes);
@@ -31,6 +32,12 @@ export const routes = renderRoutes([
         path: paths.customer.onboarding,
         exact: true,
         component: customer.Onboarding
+      },
+
+      {
+        path: paths.driver.signUp,
+        exact: true,
+        component: driver.SignUp
       }
     ]
   }
